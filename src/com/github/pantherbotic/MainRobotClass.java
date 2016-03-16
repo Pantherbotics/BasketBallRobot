@@ -9,6 +9,7 @@ package com.github.pantherbotic;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Watchdog;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,12 +20,11 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class MainRobotClass extends IterativeRobot {
 
-    public static final Jaguar motoBackLeft = new Jaguar(1, 1);
-    public static final Jaguar motoFrontLeft = new Jaguar(1, 2);
-    public static final Jaguar motoFrontRight = new Jaguar(1, 3);
-    public static final Jaguar motoBackRight = new Jaguar(1, 4);
-    public static final Joystick leftJoystick = new Joystick(0);
-    public static final Joystick rightJoystick = new Joystick(1);
+    public final Jaguar motoBackLeft = new Jaguar(1, 1);
+    public final Jaguar motoFrontLeft = new Jaguar(1, 2);
+    public final Jaguar motoFrontRight = new Jaguar(1, 3);
+    public final Jaguar motoBackRight = new Jaguar(1, 4);
+    public final Joystick rightJoystick = new Joystick(1);
 
     public void teleopPeriodic() {
         double xAxis = rightJoystick.getX(),
@@ -32,9 +32,9 @@ public class MainRobotClass extends IterativeRobot {
                 twist = rightJoystick.getTwist(),
                 throttle = rightJoystick.getThrottle();
 
-        motoBackLeft.set(xAxis + yAxis - twist);
-        motoFrontLeft.set(-xAxis + yAxis - twist);
-        motoFrontRight.set(-xAxis - yAxis - twist);
-        motoBackRight.set(-xAxis - yAxis - twist);
+        this.motoBackLeft.set(xAxis - yAxis + twist);
+        this.motoFrontLeft.set(-xAxis - yAxis + twist);
+        this.motoFrontRight.set(-xAxis + yAxis + twist);
+        this.motoBackRight.set(-xAxis + yAxis + twist);
     }
 }
